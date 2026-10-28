@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt" class="dark">
+<html lang="pt-PT" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finanças PRO - Suite Profissional Completa</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Finanças PRO - Suite Profissional Integrada</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,886 +12,506 @@
                 extend: {
                     colors: {
                         darkBg: '#0f172a',
-                        darkCard: '#1e293b',
-                        darkBorder: '#334155'
+                        cardBg: '#1e293b',
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @media print {
-            body { background: white !important; color: black !important; }
-            .no-print { display: none !important; }
-            .print-only { display: block !important; }
-            .card-print { border: 1px solid #cbd5e1 !important; background: white !important; box-shadow: none !important; }
-        }
-        .print-only { display: none; }
-    </style>
 </head>
-<body class="bg-slate-50 dark:bg-darkBg text-slate-900 dark:text-slate-100 min-h-screen font-sans antialiased transition-colors duration-300">
+<body class="bg-darkBg text-slate-100 min-h-screen p-4 md:p-8 font-sans">
 
-    <!-- 1. ECRÃ DE AUTENTICAÇÃO (LOGIN / REGISTO) -->
-    <div id="auth-screen" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-3xl p-8 max-w-md w-full shadow-2xl space-y-6">
-            <div class="text-center space-y-2">
-                <div class="w-14 h-14 bg-blue-600 rounded-2xl mx-auto flex items-center justify-center text-2xl text-white shadow-lg shadow-blue-500/30">
-                    <i class="fa-solid fa-wallet"></i>
-                </div>
-                <h2 class="text-2xl font-bold text-slate-900 dark:text-white" id="auth-title">Bem-vindo ao Finanças PRO</h2>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Insere os teus dados para aceder à tua conta segura</p>
+    <!-- ECRÃ DE AUTENTICAÇÃO (LOGIN / REGISTO) -->
+    <div id="authContainer" class="max-w-md mx-auto mt-20 bg-cardBg p-8 rounded-2xl border border-slate-800 shadow-xl">
+        <div class="text-center mb-6">
+            <div class="bg-blue-600 inline-block p-3 rounded-2xl text-white font-bold text-2xl mb-2">💳</div>
+            <h1 class="text-2xl font-bold tracking-wide">Finanças PRO</h1>
+            <p class="text-xs text-slate-400">Suite Profissional Integrada</p>
+        </div>
+        
+        <div id="formLoginDiv" class="space-y-4">
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Utilizador / Email</label>
+                <input type="text" id="loginUser" placeholder="danilopereira199328" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
             </div>
-
-            <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                <div id="name-field-container" class="hidden">
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Nome Completo</label>
-                    <input type="text" id="auth-name" placeholder="Ex: Danilo Pereira" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Email / Utilizador</label>
-                    <input type="text" id="auth-email" required placeholder="exemplo@dominio.com" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1">Palavra-passe</label>
-                    <input type="password" id="auth-pass" required placeholder="••••••••" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                </div>
-                <button type="submit" id="auth-submit-btn" class="w-full py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition shadow-lg shadow-blue-600/30">Entrar na Conta</button>
-            </form>
-
-            <div class="text-center pt-2 border-t border-slate-200 dark:border-darkBorder">
-                <button type="button" onclick="alternarModoAuth()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium" id="auth-switch-text">
-                    Não tens conta? Criar nova conta
-                </button>
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Palavra-passe</label>
+                <input type="password" id="loginPass" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
             </div>
+            <button onclick="fazerLogin()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg transition text-sm">Entrar na Suite</button>
+            <p class="text-xs text-center text-slate-400 mt-4">Não tens conta? <button onclick="alternarAuth()" class="text-blue-400 underline">Criar Conta</button></p>
+        </div>
+
+        <div id="formRegistarDiv" class="space-y-4 hidden">
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Escolhe um Utilizador</label>
+                <input type="text" id="regUser" placeholder="O teu nome de utilizador" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
+            </div>
+            <div>
+                <label class="block text-xs text-slate-400 mb-1">Define uma Palavra-passe</label>
+                <input type="password" id="regPass" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-white text-sm">
+            </div>
+            <button onclick="registarConta()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition text-sm">Registar Conta</button>
+            <p class="text-xs text-center text-slate-400 mt-4">Já tens conta? <button onclick="alternarAuth()" class="text-blue-400 underline">Fazer Login</button></p>
         </div>
     </div>
 
     <!-- APLICAÇÃO PRINCIPAL -->
-    <div id="app-main" class="flex flex-col min-h-screen">
-        <header class="bg-white dark:bg-darkCard border-b border-slate-200 dark:border-darkBorder sticky top-0 z-30 no-print transition-colors duration-300 shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-xl shadow-lg shadow-blue-500/20 text-white">
-                        <i class="fa-solid fa-wallet"></i>
-                    </div>
-                    <div>
-                        <div class="flex items-center gap-2">
-                            <h1 class="font-bold text-lg leading-tight">Finanças PRO</h1>
-                            <span class="text-xs bg-blue-500/20 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full font-medium" id="user-greeting-badge">Utilizador</span>
-                        </div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Suite Profissional Integrada</p>
-                    </div>
+    <div id="appContainer" class="max-w-7xl mx-auto space-y-6 hidden">
+        <!-- Top Bar -->
+        <header class="flex flex-col md:flex-row justify-between items-center bg-cardBg p-4 rounded-2xl shadow-lg border border-slate-800 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-blue-600 p-2.5 rounded-xl text-white font-bold text-xl">💳</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide">Finanças PRO</h1>
+                    <p class="text-xs text-slate-400">Suite Profissional Integrada</p>
                 </div>
-                <div class="flex items-center gap-2.5">
-                    <button onclick="gerarRelatorioPDF()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white rounded-xl text-xs font-medium transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-file-pdf text-rose-500"></i> Relatório PDF
-                    </button>
-                    <button onclick="alternarTema()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white rounded-xl text-xs font-medium transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-circle-half-stroke text-blue-500"></i> Tema
-                    </button>
-                    <button onclick="fazerBackupJSON()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white rounded-xl text-xs font-medium transition flex items-center gap-1.5 shadow-sm">
-                        <i class="fa-solid fa-file-arrow-down text-emerald-500"></i> Backup
-                    </button>
-                    <button onclick="terminarSessao()" class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 rounded-xl text-xs font-medium transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-right-from-bracket"></i> Sair
-                    </button>
-                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <span id="spanUser" class="text-sm bg-slate-800 px-3 py-1.5 rounded-lg text-slate-300">👤 danilopereira199328</span>
+                <button onclick="exportarExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition">📊 Exportar Excel</button>
+                <button onclick="abrirModalCategorias()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition">🏷️ Gerir Categorias</button>
+                <button onclick="gerarRelatorioPDF()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition">📄 Relatório PDF</button>
+                <button onclick="fazerBackup()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition">💾 Backup</button>
+                <button onclick="fazerLogout()" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg text-sm flex items-center gap-1 transition">🚪 Sair</button>
             </div>
         </header>
 
-        <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full space-y-6">
+        <!-- Alerta de Orçamento Dinâmico -->
+        <div id="alertaOrcamento" class="hidden bg-rose-500/20 border border-rose-500 text-rose-300 p-4 rounded-2xl flex items-center justify-between">
+            <span class="font-medium">⚠️ Atenção: As despesas do mês ultrapassaram o teto orçamental definido!</span>
+            <button onclick="document.getElementById('alertaOrcamento').classList.add('hidden')" class="text-sm underline">Dispensar</button>
+        </div>
 
-            <!-- BANNER DE ALERTA DE ORÇAMENTO -->
-            <div id="budget-alert-banner" class="hidden bg-rose-500/10 border border-rose-500/30 rounded-2xl p-4 flex items-center justify-between no-print">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-rose-500/20 text-rose-500 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-triangle-exclamation"></i></div>
-                    <div>
-                        <h4 class="font-bold text-sm text-rose-600 dark:text-rose-300">Atenção: Teto Salarial Ultrapassado!</h4>
-                        <p class="text-xs text-slate-600 dark:text-slate-300">As despesas do mês superaram o orçamento definido.</p>
-                    </div>
+        <!-- KPI Grid Principal -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800 shadow-md">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Restante / Saldo</p>
+                <h3 id="kpiSaldo" class="text-2xl font-bold mt-1 text-emerald-400">400.00 €</h3>
+                <p class="text-xs text-slate-500 mt-1">Baseado no teto orçamental</p>
+            </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800 shadow-md">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Receitas do Mês</p>
+                <h3 id="kpiReceitas" class="text-2xl font-bold mt-1 text-blue-400">0.00 €</h3>
+            </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800 shadow-md">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Despesas do Mês</p>
+                <h3 id="kpiDespesas" class="text-2xl font-bold mt-1 text-rose-400">100.00 €</h3>
+            </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800 shadow-md">
+                <p class="text-xs text-slate-400 uppercase tracking-wider">Teto Salarial / Orçamento</p>
+                <input type="number" id="tetoOrcamental" value="500" onchange="atualizarCalculos()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white font-bold mt-1 focus:outline-none focus:border-blue-500">
+            </div>
+        </div>
+
+        <!-- Módulos Avançados Integrados -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h4 class="font-semibold text-sm mb-3 flex items-center justify-between">
+                    <span>📄 Faturação</span>
+                    <button onclick="adicionarFatura()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-2 py-0.5 rounded text-xs">+</button>
+                </h4>
+                <div id="listaFaturas" class="space-y-2 text-sm">
+                    <p class="text-xs text-slate-500">Sem faturas registadas.</p>
                 </div>
             </div>
 
-            <!-- 1. BLOCO DE KPIS & TETO SALARIAL REATIVO -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg transition-colors card-print">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Restante / Saldo</span>
-                    <div class="text-2xl font-bold mt-2 text-slate-900 dark:text-white" id="valorRestante">0,00 €</div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Baseado no teto orçamental</p>
-                </div>
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg transition-colors card-print">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Receitas do Mês</span>
-                    <div class="text-2xl font-bold text-emerald-600 dark:text-emerald-400 mt-2" id="kpi-receitas">0,00 €</div>
-                </div>
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg transition-colors card-print">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Despesas do Mês</span>
-                    <div class="text-2xl font-bold text-rose-600 dark:text-rose-400 mt-2" id="kpi-despesas">0,00 €</div>
-                </div>
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg transition-colors card-print">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Teto Salarial / Orçamento</span>
-                    <input type="number" id="tetoSalarialInput" placeholder="Ex: 1500" class="w-full mt-2 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-3 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500" value="1200">
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h4 class="font-semibold text-sm mb-3 flex items-center justify-between">
+                    <span>🐾 Pet Care</span>
+                    <button onclick="adicionarGastoPet()" class="bg-rose-600 hover:bg-rose-700 text-white px-2 py-0.5 rounded text-xs">+</button>
+                </h4>
+                <div id="listaPetCare" class="space-y-2 text-sm">
+                    <div class="flex justify-between bg-slate-900 p-2 rounded-lg"><span>Tobias: Ração</span><span class="text-rose-400">-50.00 €</span></div>
                 </div>
             </div>
 
-            <!-- 2. MÓDULOS ESPECIAIS INTEGRADOS & CRIPTO ATIVO -->
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                <!-- Faturação -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-sm flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-file-invoice-dollar text-emerald-500"></i> Faturação</h3>
-                            <button onclick="adicionarFaturaModal()" class="px-2 py-1 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs text-white transition"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                        <div id="invoices-list-preview" class="space-y-1.5 max-h-28 overflow-y-auto pr-1 text-xs text-slate-600 dark:text-slate-300">
-                            <p class="text-slate-400">Sem faturas.</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-darkBorder flex justify-between text-xs font-semibold">
-                        <span class="text-slate-500 dark:text-slate-400">Total Recebido:</span>
-                        <span class="text-emerald-600 dark:text-emerald-400" id="invoices-total">0,00 €</span>
-                    </div>
-                </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h4 class="font-semibold text-sm mb-3">🛡️ Fundo Emergência</h4>
+                <p class="text-xs text-slate-400">Autonomia calculada:</p>
+                <div class="text-xl font-bold text-indigo-400 mt-2">4.0 Meses</div>
+            </div>
 
-                <!-- Pet Care -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-sm flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-paw text-pink-500"></i> Pet Care</h3>
-                            <button onclick="adicionarPetDespesaModal()" class="px-2 py-1 bg-pink-600 hover:bg-pink-500 rounded-lg text-xs text-white transition"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                        <div id="pets-list-preview" class="space-y-1.5 max-h-28 overflow-y-auto pr-1 text-xs text-slate-600 dark:text-slate-300">
-                            <p class="text-slate-400">Sem despesas.</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-darkBorder flex justify-between text-xs font-semibold">
-                        <span class="text-slate-500 dark:text-slate-400">Total Pets:</span>
-                        <span class="text-pink-600 dark:text-pink-400" id="pets-total">0,00 €</span>
-                    </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h4 class="font-semibold text-sm mb-3 flex items-center justify-between">
+                    <span>🪙 Carteira Cripto</span>
+                    <span class="text-[10px] text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded">CoinGecko Live</span>
+                </h4>
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between bg-slate-900 p-2 rounded-lg"><span>BTC Portfolio</span><span class="font-bold text-amber-400">365,230.00 €</span></div>
+                    <div class="flex justify-between bg-slate-900 p-2 rounded-lg"><span>ETH Portfolio</span><span class="font-bold text-blue-300">10,613.30 €</span></div>
                 </div>
+            </div>
+        </div>
 
-                <!-- Fundo de Emergência -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-bold text-sm flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-bullseye text-purple-500"></i> Fundo Emergência</h3>
-                        </div>
-                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-2">Autonomia calculada.</p>
-                    </div>
-                    <div class="bg-slate-100 dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-darkBorder text-center">
-                        <span class="text-xs text-slate-500 dark:text-slate-400 block">Autonomia:</span>
-                        <span class="font-bold text-purple-600 dark:text-purple-400 text-lg" id="emergency-fund-months">0.0 Meses</span>
-                    </div>
-                </div>
-
-                <!-- Criptomoedas com Carteira Ativa -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="font-bold text-sm flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-brands fa-bitcoin text-amber-500"></i> Carteira Cripto</h3>
-                            <button onclick="configurarCripto()" class="text-[10px] bg-amber-500/20 text-amber-600 dark:text-amber-400 px-1.5 py-0.5 rounded font-medium hover:bg-amber-500/30">Definir Qtd</button>
-                        </div>
-                        <div class="space-y-1.5 mt-2 text-xs">
-                            <div class="bg-slate-100 dark:bg-slate-900 p-2 rounded-xl flex items-center justify-between">
-                                <span class="font-bold text-slate-700 dark:text-slate-300">BTC Portfolio</span>
-                                <span id="crypto-btc-val" class="font-bold text-emerald-600 dark:text-emerald-400">0,00 €</span>
-                            </div>
-                            <div class="bg-slate-100 dark:bg-slate-900 p-2 rounded-xl flex items-center justify-between">
-                                <span class="font-bold text-slate-700 dark:text-slate-300">ETH Portfolio</span>
-                                <span id="crypto-eth-val" class="font-bold text-emerald-600 dark:text-emerald-400">0,00 €</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-2 text-[10px] text-slate-400 text-right" id="crypto-last-update">Preços Live CoinGecko</div>
+        <!-- GRÁFICO DE DISTRIBUIÇÃO & OBJETIVOS -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Gráfico de Distribuição por Categoria -->
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h3 class="font-bold text-base mb-4 flex items-center gap-2">
+                    <span>📊 Gráfico de Distribuição de Despesas</span>
+                </h3>
+                <div id="graficoBarras" class="space-y-3">
+                    <!-- Preenchido dinamicamente -->
                 </div>
             </div>
 
-            <!-- 3. GRÁFICO DONUT SVG & DESPESAS RECORRENTES -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Gráfico Donut -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <h3 class="font-bold text-base mb-4 flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-chart-pie text-blue-500"></i> Gráfico de Distribuição</h3>
-                    <div class="flex flex-col sm:flex-row items-center justify-around gap-4 py-2">
-                        <div id="svg-donut-container" class="w-40 h-40 flex items-center justify-center relative"></div>
-                        <div id="categories-summary-list" class="space-y-2 w-full sm:w-1/2 max-h-40 overflow-y-auto pr-1 text-xs">
-                            <p class="text-slate-400">Sem dados para gráfico.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Recorrentes -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
+            <!-- Objetivos e Metas -->
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h3 class="font-bold text-base mb-4 flex items-center justify-between">
+                    <span>🎯 Objetivos & Metas de Poupança</span>
+                    <button onclick="adicionarMeta()" class="bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs">Nova Meta</button>
+                </h3>
+                <div id="listaMetas" class="space-y-3">
                     <div>
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-base flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-repeat text-amber-500"></i> Despesas Recorrentes</h3>
-                            <button onclick="adicionarRecorrenteModal()" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 rounded-lg text-xs text-white transition"><i class="fa-solid fa-plus"></i></button>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span>Fundo de Férias</span>
+                            <span>10.00 € / 1500.00 € (1%)</span>
                         </div>
-                        <div id="recurring-list-container" class="space-y-2 max-h-40 overflow-y-auto pr-1 text-xs text-slate-600 dark:text-slate-300">
-                            <p class="text-slate-400">Sem assinaturas registadas.</p>
+                        <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-emerald-500 h-full w-[1%]"></div>
                         </div>
                     </div>
-                    <div class="mt-3 pt-2 border-t border-slate-200 dark:border-darkBorder flex justify-between text-xs font-semibold">
-                        <span class="text-slate-500 dark:text-slate-400">Total Fixo Mensal:</span>
-                        <span class="text-amber-600 dark:text-amber-400" id="recurring-total">0,00 €</span>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800">
+                    <h4 class="font-semibold text-sm mb-2">📈 Simulador de Amortização & Crédito</h4>
+                    <div class="space-y-2 text-xs">
+                        <input type="number" id="simValor" placeholder="Montante em Dívida (€)" class="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white">
+                        <button onclick="simularAmortizacao()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-1.5 rounded font-medium">Calcular Poupança de Juros</button>
+                        <p id="simResultado" class="text-emerald-400 font-medium text-center"></p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- 3.1 NOVAS FERRAMENTAS: HISTÓRICO MENSAL & METAS DE POUPANÇA -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <!-- Histórico Anual / Mensal -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-base flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-chart-column text-emerald-500"></i> Evolução Histórica Mensal</h3>
-                        <button onclick="registarMesAtualHistorico()" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 rounded-lg text-xs text-white transition">Guardar Mês</button>
+        <!-- Nova Transação & Histórico -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="bg-cardBg p-5 rounded-2xl border border-slate-800 h-fit">
+                <h3 class="font-bold text-base mb-4">➕ Nova Transação</h3>
+                <form id="formTransacao" onsubmit="registarTransacao(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Tipo</label>
+                        <select id="tipoTransacao" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-sm">
+                            <option value="Despesa">Despesa</option>
+                            <option value="Receita">Receita</option>
+                        </select>
                     </div>
-                    <div id="historico-mensal-container" class="space-y-2 max-h-44 overflow-y-auto pr-1 text-xs">
-                        <p class="text-slate-400">Nenhum mês guardado ainda. Clica em "Guardar Mês" para registar o fecho atual.</p>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Descrição</label>
+                        <input type="text" id="descTransacao" required placeholder="Ex: Supermercado" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-sm">
                     </div>
-                </div>
-
-                <!-- Objetivos & Metas de Poupança -->
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg flex flex-col justify-between transition-colors">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-bold text-base flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-trophy text-amber-500"></i> Objetivos & Metas de Poupança</h3>
-                        <button onclick="adicionarMetaModal()" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 rounded-lg text-xs text-white transition"><i class="fa-solid fa-plus"></i></button>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Valor (€)</label>
+                        <input type="number" step="0.01" id="valorTransacao" required placeholder="0.00" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-sm">
                     </div>
-                    <div id="metas-container" class="space-y-3 max-h-44 overflow-y-auto pr-1 text-xs">
-                        <p class="text-slate-400">Sem objetivos definidos.</p>
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label class="text-xs text-slate-400">Categoria</label>
+                            <button type="button" onclick="abrirModalCategorias()" class="text-xs text-purple-400 hover:underline">+ Nova Categoria</button>
+                        </div>
+                        <select id="categoriaTransacao" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-sm">
+                            <!-- Dinâmico -->
+                        </select>
                     </div>
-                </div>
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">Data</label>
+                        <input type="date" id="dataTransacao" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-white text-sm">
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition text-sm">Adicionar Movimento</button>
+                </form>
             </div>
 
-            <!-- 4. FORMULÁRIO DE TRANSAÇÃO, FILTRO POR DATAS & HISTÓRICO -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg transition-colors no-print">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-bold text-base flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-circle-plus text-blue-500"></i> Nova Transação</h3>
-                        <button onclick="criarCategoriaCustomizada()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline"><i class="fa-solid fa-folder-plus"></i> Categoria</button>
-                    </div>
-                    <form id="transaction-form" onsubmit="handleTransactionSubmit(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Tipo</label>
-                            <select id="tx-type" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                                <option value="despesa">Despesa</option>
-                                <option value="receita">Receita</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Descrição</label>
-                            <input type="text" id="tx-desc" required placeholder="Ex: Supermercado" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Valor (€)</label>
-                            <input type="number" step="0.01" id="tx-amount" required placeholder="0.00" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Categoria</label>
-                            <select id="categoriaSelect" class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"></select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-500 dark:text-slate-400 mb-1">Data</label>
-                            <input type="date" id="tx-date" required class="w-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-4 py-2 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-500">
-                        </div>
-                        <button type="submit" class="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition shadow-lg">Adicionar Transação</button>
-                    </form>
-                </div>
-
-                <div class="bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-2xl p-5 shadow-lg lg:col-span-2 flex flex-col transition-colors">
-                    <div class="flex flex-col sm:flex-row items-center justify-between mb-4 gap-3 no-print">
-                        <h3 class="font-bold text-base flex items-center gap-2 text-slate-800 dark:text-slate-200"><i class="fa-solid fa-list text-blue-500"></i> Histórico de Movimentos</h3>
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <input type="date" id="filter-start" onchange="filtrarEnderetarHistorico()" class="bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500" title="Data Início">
-                            <input type="date" id="filter-end" onchange="filtrarEnderetarHistorico()" class="bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-2.5 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500" title="Data Fim">
-                            <input type="text" id="search-input" oninput="filtrarEnderetarHistorico()" placeholder="Pesquisar..." class="bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-darkBorder rounded-xl px-3 py-1.5 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 w-32">
-                            <span id="tx-count" class="text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap">0 mov</span>
-                        </div>
-                    </div>
-                    <div id="historico-lista" class="space-y-2 max-h-[380px] overflow-y-auto pr-1 text-sm text-slate-600 dark:text-slate-300 flex-1">
-                        <p class="text-slate-400 text-center py-6">A carregar dados...</p>
-                    </div>
+            <div class="lg:col-span-2 bg-cardBg p-5 rounded-2xl border border-slate-800">
+                <h3 class="font-bold text-base mb-4">📋 Histórico de Movimentos</h3>
+                <div id="listaTransacoes" class="space-y-3 max-h-[450px] overflow-y-auto pr-2">
+                    <!-- Dinâmico -->
                 </div>
             </div>
-
-        </main>
+        </div>
     </div>
 
     <script>
-        const API_URL = window.VITE_API_URL || 'https://financas-pro-backend-fccw.onrender.com';
+        // --- LÓGICA DE AUTENTICAÇÃO ---
+        function verificarSessao() {
+            const loggedUser = localStorage.getItem('financas_pro_logged');
+            if (loggedUser) {
+                document.getElementById('authContainer').classList.add('hidden');
+                document.getElementById('appContainer').classList.remove('hidden');
+                document.getElementById('spanUser').textContent = `👤 ${loggedUser}`;
+            } else {
+                document.getElementById('authContainer').classList.remove('hidden');
+                document.getElementById('appContainer').classList.add('hidden');
+            }
+        }
 
-        let isRegisterMode = false;
-        let currentUser = null;
-        let cryptoHoldings = { btc: 0, eth: 0 };
-        let cryptoPrices = { btc: 0, eth: 0 };
-        let historicoMensal = [];
-        let metasPoupanca = [];
+        function alternarAuth() {
+            document.getElementById('formLoginDiv').classList.toggle('hidden');
+            document.getElementById('formRegistarDiv').classList.toggle('hidden');
+        }
 
-        let categoriasFinancas = [
-            { id: 'alimentacao', nome: '🛒 Alimentação & Supermercado' },
-            { id: 'habitacao', nome: '🏠 Habitação & Contas' },
-            { id: 'transporte', nome: '🚗 Transporte & Combustível' },
-            { id: 'saude', nome: '💊 Saúde & Bem-estar' },
-            { id: 'lazer', nome: '🎉 Lazer & Estilo de Vida' },
-            { id: 'faturacao', nome: '💼 Faturação / Negócios' },
-            { id: 'pets', nome: '🐾 Pet Care' },
-            { id: 'recorrentes', nome: '🔄 Despesas Recorrentes' },
-            { id: 'outros', nome: '📦 Outras Despesas' }
+        function fazerLogin() {
+            const user = document.getElementById('loginUser').value.trim();
+            if (user) {
+                localStorage.setItem('financas_pro_logged', user);
+                verificarSessao();
+            } else {
+                alert("Insere um utilizador válido.");
+            }
+        }
+
+        function registarConta() {
+            const user = document.getElementById('regUser').value.trim();
+            if (user) {
+                localStorage.setItem('financas_pro_logged', user);
+                alert("Conta criada com sucesso!");
+                verificarSessao();
+            } else {
+                alert("Insere um nome para a conta.");
+            }
+        }
+
+        function fazerLogout() {
+            localStorage.removeItem('financas_pro_logged');
+            verificarSessao();
+        }
+
+        // --- ESTADO E FUNCIONALIDADES DA SUÍTE ---
+        let categoriasPersonalizadas = JSON.parse(localStorage.getItem('financas_pro_categorias')) || [
+            "Alimentação & Supermercado", "Pet Care", "Ginásio", "Habitação", "Transporte", "Outros"
+        ];
+        
+        let transacoes = JSON.parse(localStorage.getItem('financas_pro_transacoes')) || [
+            { tipo: "Despesa", descricao: "Compras Supermercado", valor: 25.00, categoria: "Alimentação & Supermercado", data: "2026-10-28" }
         ];
 
-        let transacoes = [];
-        let faturas = [];
-        let despesasPets = [];
-        let recorrentes = [];
+        let faturas = JSON.parse(localStorage.getItem('financas_pro_faturas')) || [];
+        let metas = JSON.parse(localStorage.getItem('financas_pro_metas')) || [
+            { nome: "Fundo de Férias", atual: 10, alvo: 1500 }
+        ];
 
-        // --- SISTEMA DE AUTENTICAÇÃO ---
-        function alternarModoAuth() {
-            isRegisterMode = !isRegisterMode;
-            const title = document.getElementById('auth-title');
-            const btn = document.getElementById('auth-submit-btn');
-            const switchText = document.getElementById('auth-switch-text');
-            const nameContainer = document.getElementById('name-field-container');
-
-            if (isRegisterMode) {
-                title.textContent = 'Criar Nova Conta';
-                btn.textContent = 'Registar Conta';
-                switchText.textContent = 'Já tens conta? Fazer Login';
-                nameContainer.classList.remove('hidden');
-            } else {
-                title.textContent = 'Bem-vindo ao Finanças PRO';
-                btn.textContent = 'Entrar na Conta';
-                switchText.textContent = 'Não tens conta? Criar nova conta';
-                nameContainer.classList.add('hidden');
-            }
+        function atualizarSelectCategorias() {
+            const select = document.getElementById('categoriaTransacao');
+            if (!select) return;
+            select.innerHTML = '';
+            categoriasPersonalizadas.forEach(cat => {
+                let opt = document.createElement('option');
+                opt.value = cat;
+                opt.textContent = cat;
+                select.appendChild(opt);
+            });
         }
 
-        function handleAuthSubmit(e) {
-            e.preventDefault();
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-pass').value;
-            const name = document.getElementById('auth-name').value || email.split('@')[0];
-
-            if (isRegisterMode) {
-                const users = JSON.parse(localStorage.getItem('financas_pro_users') || '[]');
-                if (users.find(u => u.email === email)) {
-                    alert('Este email já está registado!');
-                    return;
-                }
-                users.push({ email, pass, name });
-                localStorage.setItem('financas_pro_users', JSON.stringify(users));
-                alert('Conta criada com sucesso! Podes fazer login.');
-                alternarModoAuth();
-            } else {
-                const users = JSON.parse(localStorage.getItem('financas_pro_users') || '[]');
-                const found = users.find(u => u.email === email && u.pass === pass);
-                if (found || users.length === 0) {
-                    currentUser = found ? found.name : name;
-                    localStorage.setItem('financas_pro_current_user', currentUser);
-                    carregarDadosUtilizadorLocalStorage();
-                    ativarAppPrincipal();
+        function abrirModalCategorias() {
+            let nova = prompt("Introduz o nome da nova categoria:");
+            if (nova && nova.trim() !== "") {
+                nova = nova.trim();
+                if (!categoriasPersonalizadas.includes(nova)) {
+                    categoriasPersonalizadas.push(nova);
+                    localStorage.setItem('financas_pro_categorias', JSON.stringify(categoriasPersonalizadas));
+                    atualizarSelectCategorias();
+                    alert(`Categoria "${nova}" adicionada com sucesso!`);
                 } else {
-                    alert('Email ou palavra-passe incorretos.');
+                    alert("Essa categoria já existe.");
                 }
             }
         }
 
-        function carregarDadosUtilizadorLocalStorage() {
-            const prefix = `fp_${currentUser}_`;
-            historicoMensal = JSON.parse(localStorage.getItem(prefix + 'historico') || '[]');
-            metasPoupanca = JSON.parse(localStorage.getItem(prefix + 'metas') || '[]');
-            cryptoHoldings = JSON.parse(localStorage.getItem(prefix + 'crypto') || '{"btc":0,"eth":0}');
-        }
+        function registarTransacao(e) {
+            e.preventDefault();
+            const tipo = document.getElementById('tipoTransacao').value;
+            const descricao = document.getElementById('descTransacao').value;
+            const valor = parseFloat(document.getElementById('valorTransacao').value);
+            const categoria = document.getElementById('categoriaTransacao').value;
+            const data = document.getElementById('dataTransacao').value || new Date().toISOString().split('T')[0];
 
-        function guardarDadosUtilizadorLocalStorage() {
-            if (!currentUser) return;
-            const prefix = `fp_${currentUser}_`;
-            localStorage.setItem(prefix + 'historico', JSON.stringify(historicoMensal));
-            localStorage.setItem(prefix + 'metas', JSON.stringify(metasPoupanca));
-            localStorage.setItem(prefix + 'crypto', JSON.stringify(cryptoHoldings));
-        }
+            const novaTx = { tipo, descricao, valor, categoria, data };
+            transacoes.unshift(novaTx);
+            localStorage.setItem('financas_pro_transacoes', JSON.stringify(transacoes));
 
-        function ativarAppPrincipal() {
-            document.getElementById('auth-screen').classList.add('hidden');
-            document.getElementById('user-greeting-badge').textContent = currentUser;
-            popularSelectCategorias();
-            document.getElementById('tx-date').valueAsDate = new Date();
-            carregarTransacoesDoBackend();
-            carregarPrecosCripto();
-            atualizarHistoricoMensalUI();
-            atualizarMetasUI();
-        }
-
-        function terminarSessao() {
-            localStorage.removeItem('financas_pro_current_user');
-            location.reload();
-        }
-
-        // --- CORE DA APLICAÇÃO ---
-        function popularSelectCategorias() {
-            const select = document.getElementById('categoriaSelect');
-            if (select) {
-                select.innerHTML = categoriasFinancas.map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
-            }
-        }
-
-        function criarCategoriaCustomizada() {
-            const nome = prompt("Nome da nova categoria (ex: 💻 Software / Tech):");
-            if (nome) {
-                const id = nome.toLowerCase().replace(/[^a-z0-9]/g, '_');
-                categoriasFinancas.push({ id, nome });
-                popularSelectCategorias();
-                alert(`Categoria "${nome}" criada com sucesso!`);
-            }
-        }
-
-        function alternarTema() {
-            const html = document.documentElement;
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-            } else {
-                html.classList.add('dark');
-            }
-        }
-
-        function gerarRelatorioPDF() {
-            window.print();
-        }
-
-        async function carregarTransacoesDoBackend() {
-            try {
-                const response = await fetch(`${API_URL}/api/transactions`);
-                if (response.ok) {
-                    transacoes = await response.json();
-                    atualizarTudo();
-                }
-            } catch (error) {
-                console.warn("Servidor em modo local/cache.");
-                document.getElementById('backend-status').textContent = 'Modo Local';
-            }
-        }
-
-        async function carregarPrecosCripto() {
-            try {
-                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=eur');
-                if (res.ok) {
-                    const data = await res.json();
-                    cryptoPrices.btc = data.bitcoin.eur;
-                    cryptoPrices.eth = data.ethereum.eur;
-                    atualizarCriptoUI();
-                }
-            } catch (e) {
-                document.getElementById('crypto-btc-val').textContent = 'Indisponível';
-                document.getElementById('crypto-eth-val').textContent = 'Indisponível';
-            }
-        }
-
-        function configurarCripto() {
-            const btcQtd = prompt("Quantidade de Bitcoin (BTC) que possuis:", cryptoHoldings.btc);
-            const ethQtd = prompt("Quantidade de Ethereum (ETH) que possuis:", cryptoHoldings.eth);
-            if (btcQtd !== null && !isNaN(btcQtd)) cryptoHoldings.btc = parseFloat(btcQtd);
-            if (ethQtd !== null && !isNaN(ethQtd)) cryptoHoldings.eth = parseFloat(ethQtd);
-            guardarDadosUtilizadorLocalStorage();
-            atualizarCriptoUI();
-        }
-
-        function atualizarCriptoUI() {
-            const valBtc = cryptoHoldings.btc * cryptoPrices.btc;
-            const valEth = cryptoHoldings.eth * cryptoPrices.eth;
-            document.getElementById('crypto-btc-val').textContent = valBtc.toFixed(2) + ' €';
-            document.getElementById('crypto-eth-val').textContent = valEth.toFixed(2) + ' €';
-        }
-
-        function atualizarTudo() {
+            document.getElementById('formTransacao').reset();
+            document.getElementById('dataTransacao').value = new Date().toISOString().split('T')[0];
             atualizarCalculos();
-            filtrarEnderetarHistorico();
-            renderizarGraficoDonut();
-            atualizarFaturasUI();
-            atualizarPetsUI();
-            atualizarRecorrentesUI();
+            renderizarTransacoes();
+            atualizarGrafico();
+        }
+
+        function renderizarTransacoes() {
+            const container = document.getElementById('listaTransacoes');
+            container.innerHTML = '';
+            
+            if (transacoes.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 text-sm text-center py-4">Sem movimentos registados.</p>';
+                return;
+            }
+
+            transacoes.forEach((t, index) => {
+                const cor = t.tipo === 'Receita' ? 'text-blue-400' : 'text-rose-400';
+                const sinal = t.tipo === 'Receita' ? '+' : '-';
+                
+                const div = document.createElement('div');
+                div.className = "flex justify-between items-center bg-slate-900 p-3 rounded-xl border border-slate-800 text-sm";
+                div.innerHTML = `
+                    <div>
+                        <p class="font-medium text-slate-200">${t.descricao}</p>
+                        <p class="text-xs text-slate-500">${t.categoria} • ${t.data}</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="font-bold ${cor}">${sinal}${t.valor.toFixed(2)} €</span>
+                        <button onclick="removerTransacao(${index})" class="text-slate-500 hover:text-rose-400 text-xs">✕</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function removerTransacao(index) {
+            transacoes.splice(index, 1);
+            localStorage.setItem('financas_pro_transacoes', JSON.stringify(transacoes));
+            atualizarCalculos();
+            renderizarTransacoes();
+            atualizarGrafico();
         }
 
         function atualizarCalculos() {
-            const inputTeto = document.getElementById('tetoSalarialInput');
-            const teto = inputTeto ? parseFloat(inputTeto.value) || 0 : 0;
-
             let totalDespesas = 0;
             let totalReceitas = 0;
 
             transacoes.forEach(t => {
-                const val = parseFloat(t.amount || t.valor) || 0;
-                if ((t.type || t.tipo) === 'despesa') totalDespesas += val;
-                else totalReceitas += val;
+                if (t.tipo === 'Despesa') totalDespesas += t.valor;
+                else totalReceitas += t.valor;
             });
 
-            faturas.forEach(f => { totalReceitas += f.valor; });
-            despesasPets.forEach(p => { totalDespesas += p.valor; });
-            recorrentes.forEach(r => { totalDespesas += r.valor; });
-
+            const teto = parseFloat(document.getElementById('tetoOrcamental').value) || 500;
             const restante = teto - totalDespesas;
 
-            document.getElementById('valorRestante').textContent = restante.toFixed(2) + ' €';
-            document.getElementById('valorRestante').style.color = restante < 0 ? '#ef4444' : '#10b981';
-            document.getElementById('kpi-despesas').textContent = totalDespesas.toFixed(2) + ' €';
-            document.getElementById('kpi-receitas').textContent = totalReceitas.toFixed(2) + ' €';
+            document.getElementById('kpiReceitas').textContent = `${totalReceitas.toFixed(2)} €`;
+            document.getElementById('kpiDespesas').textContent = `${totalDespesas.toFixed(2)} €`;
+            document.getElementById('kpiSaldo').textContent = `${restante.toFixed(2)} €`;
 
-            const banner = document.getElementById('budget-alert-banner');
-            if (restante < 0) banner.classList.remove('hidden');
-            else banner.classList.add('hidden');
-
-            const baseDespesa = totalDespesas > 0 ? totalDespesas : 1;
-            const mesesAutonomia = (restante > 0 ? restante : 0) / baseDespesa;
-            document.getElementById('emergency-fund-months').textContent = mesesAutonomia.toFixed(1) + ' Meses';
-        }
-
-        // --- HISTÓRICO MENSAL ---
-        function registarMesAtualHistorico() {
-            const nomeMes = prompt("Nome do mês a registar (ex: Outubro 2026):", "Outubro 2026");
-            if (!nomeMes) return;
-
-            let totalDespesas = parseFloat(document.getElementById('kpi-despesas').textContent) || 0;
-            let totalReceitas = parseFloat(document.getElementById('kpi-receitas').textContent) || 0;
-            let saldoRestante = parseFloat(document.getElementById('valorRestante').textContent) || 0;
-
-            historicoMensal.push({ mes: nomeMes, despesas: totalDespesas, receitas: totalReceitas, saldo: saldoRestante });
-            guardarDadosUtilizadorLocalStorage();
-            atualizarHistoricoMensalUI();
-            alert(`Mês "${nomeMes}" guardado com sucesso!`);
-        }
-
-        function atualizarHistoricoMensalUI() {
-            const container = document.getElementById('historico-mensal-container');
-            if (historicoMensal.length === 0) {
-                container.innerHTML = `<p class="text-slate-400">Nenhum mês guardado ainda. Clica em "Guardar Mês" para registar o fecho atual.</p>`;
-                return;
-            }
-            container.innerHTML = historicoMensal.map((h, i) => `
-                <div class="bg-slate-100 dark:bg-slate-900 p-2.5 rounded-xl flex items-center justify-between">
-                    <div>
-                        <span class="font-bold text-slate-900 dark:text-white">${h.mes}</span>
-                        <span class="block text-[10px] text-slate-500">Rec: ${h.receitas.toFixed(2)}€ | Desp: ${h.despesas.toFixed(2)}€</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="font-bold text-emerald-600 dark:text-emerald-400">${h.saldo.toFixed(2)} €</span>
-                        <button onclick="removerMesHistorico(${i})" class="block text-[10px] text-rose-500 hover:underline ml-auto">Eliminar</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function removerMesHistorico(index) {
-            historicoMensal.splice(index, 1);
-            guardarDadosUtilizadorLocalStorage();
-            atualizarHistoricoMensalUI();
-        }
-
-        // --- METAS DE POUPANÇA ---
-        function adicionarMetaModal() {
-            const nome = prompt("Nome do objetivo (ex: Fundo de Férias, Novo PC):");
-            const alvo = parseFloat(prompt("Valor alvo (€):"));
-            if (nome && !isNaN(alvo)) {
-                metasPoupanca.push({ id: Date.now(), nome, alvo, atual: 0 });
-                guardarDadosUtilizadorLocalStorage();
-                atualizarMetasUI();
-            }
-        }
-
-        function depositarMeta(id) {
-            const valor = parseFloat(prompt("Valor a adicionar a esta meta (€):"));
-            if (!isNaN(valor) && valor > 0) {
-                const meta = metasPoupanca.find(m => m.id === id);
-                if (meta) {
-                    meta.atual += valor;
-                    guardarDadosUtilizadorLocalStorage();
-                    atualizarMetasUI();
-                }
-            }
-        }
-
-        function removerMeta(id) {
-            metasPoupanca = metasPoupanca.filter(m => m.id !== id);
-            guardarDadosUtilizadorLocalStorage();
-            atualizarMetasUI();
-        }
-
-        function atualizarMetasUI() {
-            const container = document.getElementById('metas-container');
-            if (metasPoupanca.length === 0) {
-                container.innerHTML = `<p class="text-slate-400">Sem objetivos definidos.</p>`;
-                return;
-            }
-            container.innerHTML = metasPoupanca.map(m => {
-                const progresso = Math.min(100, (m.atual / m.alvo) * 100);
-                return `
-                    <div class="bg-slate-100 dark:bg-slate-900 p-2.5 rounded-xl space-y-2">
-                        <div class="flex justify-between items-center text-xs">
-                            <span class="font-bold text-slate-900 dark:text-white">${m.nome}</span>
-                            <span class="text-slate-500">${m.atual.toFixed(2)} € / ${m.alvo.toFixed(2)} € (${progresso.toFixed(0)}%)</span>
-                        </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
-                            <div class="bg-blue-600 h-full transition-all duration-500" style="width: ${progresso}%"></div>
-                        </div>
-                        <div class="flex justify-between items-center pt-1">
-                            <button onclick="depositarMeta(${m.id})" class="text-[10px] bg-emerald-600 hover:bg-emerald-500 text-white px-2 py-1 rounded transition">+ Depositar</button>
-                            <button onclick="removerMeta(${m.id})" class="text-[10px] text-rose-500 hover:underline">Apagar Meta</button>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function renderizarGraficoDonut() {
-            const container = document.getElementById('svg-donut-container');
-            const listaContainer = document.getElementById('categories-summary-list');
-            const totaisPorCat = {};
-
-            transacoes.filter(t => (t.type || t.tipo) === 'despesa').forEach(t => {
-                const cat = t.categoria || 'outros';
-                totaisPorCat[cat] = (totaisPorCat[cat] || 0) + (parseFloat(t.amount || t.valor) || 0);
-            });
-
-            if (despesasPets.length > 0) {
-                totaisPorCat['pets'] = (totaisPorCat['pets'] || 0) + despesasPets.reduce((a, b) => a + b.valor, 0);
-            }
-            if (recorrentes.length > 0) {
-                totaisPorCat['recorrentes'] = (totaisPorCat['recorrentes'] || 0) + recorrentes.reduce((a, b) => a + b.valor, 0);
-            }
-
-            const totalGeral = Object.values(totaisPorCat).reduce((a, b) => a + b, 0);
-
-            if (totalGeral === 0) {
-                container.innerHTML = `<span class="text-xs text-slate-400">Sem dados</span>`;
-                listaContainer.innerHTML = `<p class="text-slate-400 text-xs">Sem despesas categorizadas.</p>`;
-                return;
-            }
-
-            const cores = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'];
-            let acumulado = 0;
-            let svgPaths = '';
-
-            const entradas = Object.entries(totaisPorCat);
-            
-            entradas.forEach(([catId, val], index) => {
-                const pct = val / totalGeral;
-                const cor = cores[index % cores.length];
-                const dashArray = `${pct * 100} 100`;
-                const dashOffset = -acumulado * 100;
-
-                svgPaths += `<circle cx="21" cy="21" r="15.9155" fill="transparent" stroke="${cor}" stroke-width="5" stroke-dasharray="${dashArray}" stroke-dashoffset="${dashOffset}"></circle>`;
-                acumulado += pct;
-            });
-
-            container.innerHTML = `
-                <svg viewBox="0 0 42 42" class="w-36 h-36 transform -rotate-90">
-                    <circle cx="21" cy="21" r="15.9155" fill="transparent" stroke="#cbd5e1" stroke-width="5" class="dark:stroke-slate-700"></circle>
-                    ${svgPaths}
-                </svg>
-                <div class="absolute inset-0 flex items-center justify-center flex-col">
-                    <span class="text-xs text-slate-400">Total</span>
-                    <span class="font-bold text-xs text-slate-800 dark:text-white">${totalGeral.toFixed(0)}€</span>
-                </div>
-            `;
-
-            listaContainer.innerHTML = entradas.map(([catId, val], index) => {
-                const info = categoriasFinancas.find(c => c.id === catId) || { nome: catId };
-                const cor = cores[index % cores.length];
-                return `
-                    <div class="bg-slate-100 dark:bg-slate-900 p-2 rounded-lg flex items-center justify-between">
-                        <div class="flex items-center gap-2">
-                            <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${cor}"></span>
-                            <span class="text-slate-700 dark:text-slate-300 truncate max-w-[110px]">${info.nome}</span>
-                        </div>
-                        <span class="font-bold text-rose-600 dark:text-rose-400">${val.toFixed(2)} €</span>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function filtrarEnderetarHistorico() {
-            const termo = document.getElementById('search-input').value.toLowerCase();
-            const dataInicio = document.getElementById('filter-start').value;
-            const dataFim = document.getElementById('filter-end').value;
-            const container = document.getElementById('historico-lista');
-
-            const filtradas = transacoes.filter(t => {
-                const desc = (t.desc || t.descricao || '').toLowerCase();
-                const cat = (t.categoria || '').toLowerCase();
-                const dataTx = t.date || t.data || '';
-
-                const matchTexto = desc.includes(termo) || cat.includes(termo);
-                const matchInicio = !dataInicio || dataTx >= dataInicio;
-                const matchFim = !dataFim || dataTx <= dataFim;
-
-                return matchTexto && matchInicio && matchFim;
-            });
-
-            document.getElementById('tx-count').textContent = `${filtradas.length} mov`;
-
-            if (filtradas.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-center py-6">Nenhum movimento encontrado.</p>`;
-                return;
-            }
-
-            container.innerHTML = filtradas.map(t => {
-                const tipo = t.type || t.tipo;
-                const valor = parseFloat(t.amount || t.valor) || 0;
-                return `
-                    <div class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-darkBorder p-3 rounded-xl flex items-center justify-between">
-                        <div>
-                            <span class="font-bold text-slate-900 dark:text-white">${t.desc || t.descricao}</span>
-                            <span class="block text-xs text-slate-500 dark:text-slate-400">${t.categoria || 'Geral'} • ${t.date || t.data || ''}</span>
-                        </div>
-                        <span class="font-bold ${tipo === 'despesa' ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}">
-                            ${tipo === 'despesa' ? '-' : '+'}${valor.toFixed(2)} €
-                        </span>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        async function handleTransactionSubmit(e) {
-            e.preventDefault();
-            const descricao = document.getElementById('tx-desc').value;
-            const valor = parseFloat(document.getElementById('tx-amount').value);
-            const tipo = document.getElementById('tx-type').value;
-            const categoria = document.getElementById('categoriaSelect').value;
-            const data = document.getElementById('tx-date').value;
-
-            const novaTx = { 
-                id: Date.now(),
-                desc: descricao, 
-                descricao: descricao, 
-                amount: valor, 
-                valor: valor, 
-                type: tipo, 
-                tipo: tipo, 
-                categoria, 
-                date: data, 
-                data 
-            };
-
-            try {
-                const res = await fetch(`${API_URL}/api/transactions`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(novaTx)
-                });
-                
-                if (res.ok) {
-                    document.getElementById('transaction-form').reset();
-                    document.getElementById('tx-date').valueAsDate = new Date();
-                    carregarTransacoesDoBackend();
-                } else {
-                    throw new Error();
-                }
-            } catch (err) {
-                transacoes.unshift(novaTx);
-                atualizarTudo();
-                document.getElementById('transaction-form').reset();
-                document.getElementById('tx-date').valueAsDate = new Date();
-            }
-        }
-
-        function adicionarFaturaModal() {
-            const cliente = prompt("Nome do cliente / negócio:");
-            const valor = parseFloat(prompt("Valor da fatura (€):"));
-            if (cliente && !isNaN(valor)) {
-                faturas.push({ cliente, valor });
-                atualizarTudo();
-            }
-        }
-
-        function atualizarFaturasUI() {
-            const container = document.getElementById('invoices-list-preview');
-            const totalEl = document.getElementById('invoices-total');
-            let soma = 0;
-            if (faturas.length === 0) {
-                container.innerHTML = `<p class="text-slate-400">Sem faturas.</p>`;
-                totalEl.textContent = '0,00 €';
-                return;
-            }
-            container.innerHTML = faturas.map(f => {
-                soma += f.valor;
-                return `<div class="bg-slate-100 dark:bg-slate-900 p-1.5 rounded-lg flex justify-between items-center"><span class="text-slate-700 dark:text-slate-300">${f.cliente}</span><span class="font-bold text-emerald-600 dark:text-emerald-400">+${f.valor.toFixed(2)} €</span></div>`;
-            }).join('');
-            totalEl.textContent = soma.toFixed(2) + ' €';
-        }
-
-        function adicionarPetDespesaModal() {
-            const pet = prompt("Nome do pet (Ex: Tobias):");
-            const desc = prompt("Descrição (Ex: Ração):");
-            const valor = parseFloat(prompt("Valor (€):"));
-            if (pet && desc && !isNaN(valor)) {
-                despesasPets.push({ pet, desc, valor });
-                atualizarTudo();
-            }
-        }
-
-        function atualizarPetsUI() {
-            const container = document.getElementById('pets-list-preview');
-            const totalEl = document.getElementById('pets-total');
-            let soma = 0;
-            if (despesasPets.length === 0) {
-                container.innerHTML = `<p class="text-slate-400">Sem despesas.</p>`;
-                totalEl.textContent = '0,00 €';
-                return;
-            }
-            container.innerHTML = despesasPets.map(p => {
-                soma += p.valor;
-                return `<div class="bg-slate-100 dark:bg-slate-900 p-1.5 rounded-lg flex justify-between items-center"><span class="text-slate-700 dark:text-slate-300">${p.pet}: ${p.desc}</span><span class="font-bold text-pink-600 dark:text-pink-400">-${p.valor.toFixed(2)} €</span></div>`;
-            }).join('');
-            totalEl.textContent = soma.toFixed(2) + ' €';
-        }
-
-        function adicionarRecorrenteModal() {
-            const nome = prompt("Nome da assinatura (Ex: Netflix, Ginásio):");
-            const valor = parseFloat(prompt("Valor mensal (€):"));
-            if (nome && !isNaN(valor)) {
-                recorrentes.push({ nome, valor });
-                atualizarTudo();
-            }
-        }
-
-        function atualizarRecorrentesUI() {
-            const container = document.getElementById('recurring-list-container');
-            const totalEl = document.getElementById('recurring-total');
-            let soma = 0;
-            if (recorrentes.length === 0) {
-                container.innerHTML = `<p class="text-slate-400">Sem assinaturas registadas.</p>`;
-                totalEl.textContent = '0,00 €';
-                return;
-            }
-            container.innerHTML = recorrentes.map(r => {
-                soma += r.valor;
-                return `<div class="bg-slate-100 dark:bg-slate-900 p-2 rounded-lg flex justify-between items-center"><span class="text-slate-700 dark:text-slate-300"><i class="fa-solid fa-bolt text-amber-500"></i> ${r.nome}</span><span class="font-bold text-amber-600 dark:text-amber-400">-${r.valor.toFixed(2)} €</span></div>`;
-            }).join('');
-            totalEl.textContent = soma.toFixed(2) + ' €';
-        }
-
-        function fazerBackupJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(transacoes, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", "financas_pro_backup.json");
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedUser = localStorage.getItem('financas_pro_current_user');
-            if (savedUser) {
-                currentUser = savedUser;
-                carregarDadosUtilizadorLocalStorage();
-                ativarAppPrincipal();
+            const alerta = document.getElementById('alertaOrcamento');
+            if (totalDespesas > teto) {
+                alerta.classList.remove('hidden');
             } else {
-                document.getElementById('auth-screen').classList.remove('hidden');
+                alerta.classList.add('hidden');
+            }
+        }
+
+        function atualizarGrafico() {
+            const container = document.getElementById('graficoBarras');
+            container.innerHTML = '';
+
+            let totaisPorCat = {};
+            let totalGeralDespesas = 0;
+
+            transacoes.forEach(t => {
+                if (t.tipo === 'Despesa') {
+                    totaisPorCat[t.categoria] = (totaisPorCat[t.categoria] || 0) + t.valor;
+                    totalGeralDespesas += t.valor;
+                }
+            });
+
+            if (totalGeralDespesas === 0) {
+                container.innerHTML = '<p class="text-xs text-slate-500 text-center py-6">Sem despesas para gerar gráfico.</p>';
+                return;
             }
 
-            const inputTeto = document.getElementById('tetoSalarialInput');
-            if (inputTeto) {
-                inputTeto.addEventListener('input', atualizarCalculos);
-                inputTeto.addEventListener('change', atualizarCalculos);
+            for (const [cat, valor] of Object.entries(totaisPorCat)) {
+                let percentagem = ((valor / totalGeralDespesas) * 100).toFixed(1);
+                
+                let wrapper = document.createElement('div');
+                wrapper.className = "space-y-1 text-xs";
+                wrapper.innerHTML = `
+                    <div class="flex justify-between text-slate-300">
+                        <span>${cat}</span>
+                        <span class="font-bold">${valor.toFixed(2)} € (${percentagem}%)</span>
+                    </div>
+                    <div class="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-blue-500 h-full rounded-full" style="width: ${percentagem}%"></div>
+                    </div>
+                `;
+                container.appendChild(wrapper);
             }
+        }
+
+        function exportarExcel() {
+            if (transacoes.length === 0) {
+                alert("Sem transações para exportar.");
+                return;
+            }
+            let csv = "Tipo,Descricao,Valor,Categoria,Data\n";
+            transacoes.forEach(t => {
+                csv += `"${t.tipo}","${t.descricao}","${t.valor}","${t.categoria}","${t.data}"\n`;
+            });
+            let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = "financas_pro_relatorio.csv";
+            a.click();
+        }
+
+        function simularAmortizacao() {
+            const val = parseFloat(document.getElementById('simValor').value);
+            if (!val || val <= 0) {
+                alert("Insere um montante válido.");
+                return;
+            }
+            let poupançaEstimada = (val * 0.045).toFixed(2);
+            document.getElementById('simResultado').textContent = `Poupança aprox. em juros: ~${poupançaEstimada} €`;
+        }
+
+        function gerarRelatorioPDF() { window.print(); }
+
+        function fazerBackup() {
+            let dados = JSON.stringify({ transacoes, categorias: categoriasPersonalizadas, faturas, metas });
+            let blob = new Blob([dados], { type: 'application/json' });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = "backup_financas_pro.json";
+            a.click();
+        }
+
+        function adicionarGastoPet() {
+            let desc = prompt("Descrição do gasto Pet Care (ex: Vet):");
+            let val = parseFloat(prompt("Valor (€):"));
+            if (desc && val) {
+                transacoes.unshift({ tipo: "Despesa", descricao: `Pet: ${desc}`, valor: val, categoria: "Pet Care", data: new Date().toISOString().split('T')[0] });
+                localStorage.setItem('financas_pro_transacoes', JSON.stringify(transacoes));
+                atualizarCalculos();
+                renderizarTransacoes();
+                atualizarGrafico();
+            }
+        }
+
+        function adicionarFatura() {
+            let desc = prompt("Descrição da fatura:");
+            let val = parseFloat(prompt("Valor (€):"));
+            if (desc && val) {
+                faturas.push({ descricao: desc, valor: val });
+                localStorage.setItem('financas_pro_faturas', JSON.stringify(faturas));
+                alert("Fatura registada!");
+            }
+        }
+
+        function adicionarMeta() {
+            let nome = prompt("Nome do objetivo de poupança:");
+            let alvo = parseFloat(prompt("Valor alvo (€):"));
+            if (nome && alvo) {
+                metas.push({ nome, atual: 0, alvo });
+                localStorage.setItem('financas_pro_metas', JSON.stringify(metas));
+                alert("Meta criada!");
+            }
+        }
+
+        // Inicialização
+        document.addEventListener("DOMContentLoaded", () => {
+            verificarSessao();
+            document.getElementById('dataTransacao').value = new Date().toISOString().split('T')[0];
+            atualizarSelectCategorias();
+            atualizarCalculos();
+            renderizarTransacoes();
+            atualizarGrafico();
         });
     </script>
 </body>
