@@ -1,31 +1,38 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Configuração de Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Base de dados em memória temporária (ou podes ligar à tua base de dados real)
-let transacoes = [];
+// Servir ficheiros estáticos da pasta atual
+app.use(express.static(path.join(__dirname)));
 
-// Rota para testar se a API está ativa
-app.get('/', (req, res) => {
-    res.send('Financas PRO Backend a funcionar!');
-});
+// Base de dados em memória para as transações sincronizadas
+let transacoesDoServidor = [];
 
-// Obter transações
+// --- ROTAS DA API ---
 app.get('/api/transactions', (req, res) => {
-    res.json(transacoes);
+    res.json(transacoesDoServidor);
 });
 
-// Adicionar transação
 app.post('/api/transactions', (req, res) => {
     const novaTx = req.body;
-    transacoes.unshift(novaTx);
-    res.status(201).json({ success: true, novaTx });
+    transacoesDoServidor.unshift(novaTx);
+    res.status(201).json({ success: true, transaction: novaTx });
 });
 
-const PORT = process.env.PORT || 10000;
+// --- ROTA DE SUPORTE AO FRONTEND ---
+// Garante que qualquer pedido feito ao servidor devolve o index.html principal
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Iniciar Servidor
 app.listen(PORT, () => {
-    console.log(`Servidor a correr na porta ${PORT}`);
+    console.log(`Servidor Finanças PRO a correr na porta ${PORT}`);
 });
